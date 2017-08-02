@@ -9,6 +9,8 @@ import {BrowserRouter as Router,
 		NavLink, 
 		Redirect } from 'react-router-dom';
 		
+import {getData} from './http/http';
+		
 
 const FilterLink = ({to ,children}) => {
 	return(
@@ -50,7 +52,6 @@ const fakeAuth = {
 //AuthButton
 
 const AuthButton = withRouter(({history}) => {
-	
 	return(
 		fakeAuth.isAuthenticated ? (
 		    <p>
@@ -106,6 +107,16 @@ const PrivateRoute = ({component: Component, ...rest}) => {
 
 
 class Login extends React.Component{
+	
+	componentWillMount(){
+		getData('http://106.14.175.146/')
+			.then((data)=>{
+				console.log(data);
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
 	
 	state = {
 	    redirectToReferrer: false
